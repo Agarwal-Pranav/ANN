@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+
+
+module mac (
+    input clk,
+    input [31:0] a, b,
+    output [31:0] out
+);
+
+    wire [31:0] accu,x; // Accumulator register
+    reg [31:0] A,B,y=0;
+    
+    // Instantiate Floating Point Multiplier
+    mul_fp#(32,8) t1 (
+        a,b,x // Multiplier output
+    );
+
+    always@(posedge clk) begin
+            y <= out; // Store previous output
+    end
+
+    // Instantiate Floating Point Adder
+    add_fp#(32,8) t2 (
+        x,y,out // Adder output
+    );
+
+endmodule
