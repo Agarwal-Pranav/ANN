@@ -1,0 +1,14 @@
+`timescale 1ns / 1ps
+
+
+module ReLu(input [31:0] a,
+            output reg [31:0] out);
+
+always@(*)
+    begin
+       if(a[31] || (~(|a[30:0])))
+            out=31'b0;
+        else
+            out=a;
+    end
+endmodule
