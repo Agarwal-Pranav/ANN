@@ -1,0 +1,15 @@
+`timescale 1ns / 1ps
+
+
+module sigmoid#(parameter a=32'h3F000000,b=32'h3E800000,c=32'h3CAAAAA5)
+    (input signed [31:0]x,
+     output [31:0]out);
+wire [31:0] out1,out2,out3,out4,add_out1,temp_out;
+mul_fp m1(x,b,out1);
+add_fp a1(a,out1,add_out1);
+mul_fp m2(x,x,out2);
+mul_fp m3(x,out2,out3);
+mul_fp m4(out3,c,out4);
+add_fp a2(add_out1,{~out4[31],out4[30:0]},out);
+
+endmodule
